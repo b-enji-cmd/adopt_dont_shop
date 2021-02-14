@@ -1,4 +1,9 @@
 <section id="shown-app">
 	<h2>Name: <%= @application.name %></h2>
 	<p>Address: <%= @application.get_full_address %></p>
+	<h4>Search Pets:</h4>
+	<%= form_tag(pets_path, method: :get) do %>
+	<%= text_field_tag(:search, params[:search]) %>
+	<%= submit_tag ("Search") %>
+	<% end %>
 </section>
