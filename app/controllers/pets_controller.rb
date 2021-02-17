@@ -1,7 +1,9 @@
 class PetsController < ApplicationController
 
   def index
-    @pets = Pet.search(params[:search])
+    # @pets = Pet.search(params[:search])
+    @pets = Pet.all
+    # redirect_to "applications/#{params[:app_id]}" if params[:app_id]
   end
 
   def show

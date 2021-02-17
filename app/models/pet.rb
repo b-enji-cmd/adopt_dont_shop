@@ -12,11 +12,5 @@ class Pet < ApplicationRecord
 
   enum sex: [:female, :male]
 
-  def self.search(search)
-		if search
-			where("LOWER(name) like ?", "%#{search}%")
-		else
-			Pet.all
-		end  	
-  end
+  
 end
