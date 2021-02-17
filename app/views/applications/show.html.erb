@@ -1,9 +1,41 @@
+
 <section id="shown-app">
 	<h2>Name: <%= @application.name %></h2>
 	<p>Address: <%= @application.get_full_address %></p>
-	<h4>Search Pets:</h4>
-	<%= form_tag(pets_path, method: :get) do %>
-	<%= text_field_tag(:search, params[:search]) %>
-	<%= submit_tag ("Search") %>
-	<% end %>
+	<p>Description: <%= @application.description %></p>
+	<p>Application Status: <%= @application.status %></p>
+	<section id ="attached-pets">
+	<p>Pets in application</p>
+		<% @application.pets.each do |pet| %>
+		<%= pet.name %>
+		<% end %>
+	</section>
+
+  <% if @application.status == "In progress" %>
+  <section id="in-progress-app">
+  	<h4>Search Pets:</h4>
+
+		<%= form_with class: "#{"application" if @application.status != "In progress"}", url: "/applications/#{@application.id}", method: :get , local: true do |form| %>
+	  <%= form.label :search, "Search for:" %>
+	  <%= form.text_field :search %>
+	  <%= hidden_field_tag 'app_id', "#{@application.id}"  %>
+	  <%= form.submit "Search" %>
+	  <% end %>
+
+	  <% @pets.each do |pet| %>
+  		<%= pet.name %>
+  		<%= button_to "Adopt this pet", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id}  %>
+  	<% end %>
+  	
+  	<%= form_with class: "#{"application" if @application.status != "In progress" || @application.pets.empty?}" ,url:  "/applications/#{@application.id}", method: :patch , local: true do |form|  %>
+  	<%= form.label :description, "Enter a short description about you:" %>
+  	<%= form.text_field :description %>
+  	<%= form.submit "Submit Application", required: true %>
+
+  	<% end %>
+  	<% elsif @application.status == "Pending" %>
+  		<p>Application is pending. Please wait to be approved</p>
+ 		<% end %>
+ 		<!-- Changing how a form looks after adding pet, only adding one of the same pet -->
+  </section>
 </section>
