@@ -41,16 +41,5 @@ describe Pet, type: :model do
       expect(pet.male?).to be(false)
     end
 
-    describe 'class methods' do
-      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
-      pet = shelter.pets.create!(sex: :female, name: "Fluffy", approximate_age: 3, description: 'super cute')
-      it'::search'do
-        expect(Pet.search("fluff").first.name).to eq("Fluffy")
-      end
-    end
-
-    describe 'instance methods' do
-
-    end
   end
 end
