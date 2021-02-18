@@ -1,3 +1,8 @@
 <section id="app-info">
 	<h2>Applicant name: <%= @application.name %></h2>
+	<h4>Pets on application:</h4>
+	<% @application.pets.each do |pet|%>
+		<p id="pet-<%= pet.id %>"><%= pet.name %></p>
+	<% end %>
 </section>
+
