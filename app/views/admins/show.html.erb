@@ -3,6 +3,7 @@
 	<h4>Pets on application:</h4>
 	<% @application.pets.each do |pet|%>
 		<p id="pet-<%= pet.id %>"><%= pet.name %></p>
+		<%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {approved_pet: pet.id} %>
 	<% end %>
 </section>
 
