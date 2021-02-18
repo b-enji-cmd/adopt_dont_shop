@@ -44,9 +44,7 @@ RSpec.describe'As a visitor'do
 				within("#pet-#{@pet1.id}")do
 					click_button("Approve")
 					expect(current_path).to eq("/admin/applications/#{@application_2.id}")
-				end
-				within("#pet-#{pet2.id}")do
-					expect(page).not_to have_button("Approve")
+					expect(page).to have_content("#{@pet1.name} has been approved!")
 				end
 			end
 		end
