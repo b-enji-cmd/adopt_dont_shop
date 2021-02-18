@@ -34,4 +34,17 @@ RSpec.describe'As a visitor'do
 			end
 		end
 	end
+
+	describe'when I click on the approve button'do
+		it'does not allow me to click approve for that pet again'do
+			visit "/admin/applications/#{@application_2.id}"
+			within("#app-info")do
+				within("#pet-#{@pet1.id}")do
+					click_button("Approve")
+					expect(current_path).to eq("/admin/applications/#{@application_2.id}")
+				end
+			end
+		end
+
+	end
 end
