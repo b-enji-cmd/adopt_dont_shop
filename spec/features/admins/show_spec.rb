@@ -24,4 +24,11 @@ RSpec.describe'As a visitor'do
 			end
 		end
 	end
+
+	it'has a button next to each pet to approve'do
+		visit "/admin/applications/#{@application_2.id}"
+		within("#app-info")do
+			expect(page).to have_button("Approve")
+		end
+	end
 end
