@@ -12,5 +12,8 @@ class Pet < ApplicationRecord
 
   enum sex: [:female, :male]
 
+  def adopt
+  	update(adoptable: false)
+  end
   
 end
