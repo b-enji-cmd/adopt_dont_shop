@@ -9,8 +9,5 @@ class AdminsController < ApplicationController
 		pet.adopt
 		redirect_to "/admin/applications/#{application.id}"
 	end
-	private
-  def admin_params
-    params.permit(:pet_id)
-  end
+
 end

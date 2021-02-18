@@ -7,6 +7,17 @@ describe Pet, type: :model do
     it { should belong_to :shelter }
   end
 
+  describe'instance methods'do
+    it'#adopt'do
+      shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+      pet = shelter.pets.create!(name: "Fluffy", approximate_age: 3, sex: 'male', description: 'super cute')
+      expect(pet.adoptable).to eq(true)
+      pet.adopt
+      expect(pet.adoptable).to eq(false)
+    end
+
+  end
+
   describe 'validations' do
     it {should validate_presence_of :name}
     it {should validate_presence_of :description}
@@ -40,6 +51,8 @@ describe Pet, type: :model do
       expect(pet.female?).to be(true)
       expect(pet.male?).to be(false)
     end
+
+
 
   end
 end
