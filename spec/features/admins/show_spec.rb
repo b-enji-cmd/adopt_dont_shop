@@ -5,8 +5,10 @@ RSpec.describe'As a visitor'do
 		@application_1 = Application.create!(name: 'Ben', street: '123 street', city: 'Denver', state: 'CO', zip: '80220')
 	  @shelter1 = Shelter.create!(name: "Shady Shelter", address: "123 Shady Ave", city: "Denver", state: "CO", zip: 80011)
 	  @pet1 = @shelter1.pets.create!(image:"", name: "Thor", description: "dog", approximate_age: 2, sex: "male")
+	  @pet2 = @shelter1.pets.create!(image:"", name: "Thor", description: "dog", approximate_age: 2, sex: "male")
 	  @application_2 = Application.create!(name: 'Jammy', street: '123 street', city: 'Denver', state: 'CO', zip: '80220')
 	  @application_2.pets << @pet1
+	  @application_2.pets << @pet2
 	end
 
 	describe'when I look at an application show page'do 	
@@ -42,6 +44,9 @@ RSpec.describe'As a visitor'do
 				within("#pet-#{@pet1.id}")do
 					click_button("Approve")
 					expect(current_path).to eq("/admin/applications/#{@application_2.id}")
+				end
+				within("#pet-#{pet2.id}")do
+					expect(page).not_to have_button("Approve")
 				end
 			end
 		end
