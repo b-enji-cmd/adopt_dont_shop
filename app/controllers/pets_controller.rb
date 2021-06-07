@@ -6,6 +6,20 @@ class PetsController < ApplicationController
     # redirect_to "applications/#{params[:app_id]}" if params[:app_id]
   end
 
+  def new
+    shelter = Shelter.find(params[:id])
+  end
+
+  def create
+    @pet = Pet.new(pets_params)
+    if @pet.save
+      redirect_to "/shelters/#{params[:shelter_id]}"
+    else
+      render :new, notice: "#{@pet.errors.full_messages}"
+    end
+
+  end
+
   def show
     @pet = Pet.find(params[:id])
   end
@@ -27,7 +41,7 @@ class PetsController < ApplicationController
 
   private
   def pets_params
-    params.permit(:image, :name, :description, :approximate_age, :sex, :adoptable)
+    params.permit(:image, :name, :description, :approximate_age, :sex, :adoptable, :shelter_id)
   end
 
 end

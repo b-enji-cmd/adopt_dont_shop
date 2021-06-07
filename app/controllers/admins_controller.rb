@@ -4,9 +4,9 @@ class AdminsController < ApplicationController
 	end
 
 	def update
+		binding.pry
 		application = Application.find(params[:id])
-		pet = Pet.find(params[:pet_id])
-		pet.adopt
+		# @pet_app = PetApplication.where(pet_id: params[:approve], application_id: params[:id]).first
 		redirect_to "/admin/applications/#{application.id}"
 	end
 

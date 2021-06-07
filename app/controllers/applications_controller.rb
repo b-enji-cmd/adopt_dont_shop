@@ -9,10 +9,11 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
+    binding.pry
     if params[:description]
       application.submit(params[:description])
     elsif params[:pet_id]
-      application.add_pet(params[:pet_id])
+      PetApplication.create!(pet_id: params[:pet_id], application_id: application.id)
     end
     
     application.update(application_params)
@@ -21,7 +22,9 @@ class ApplicationsController < ApplicationController
 
   def show
   	@application = Application.find(params[:id])
-    @pets = Application.search(params[:search])
+    binding.pry
+    @potential_pets = @application.search(params[:search])
+
 
   end
 
@@ -41,5 +44,9 @@ class ApplicationsController < ApplicationController
   private
   def application_params
     params.permit(:name,:street, :city, :state, :zip, :search, :description, :status)
+  end
+
+  def application_update
+    params.permit(:id, :pet_id)
   end
 end
