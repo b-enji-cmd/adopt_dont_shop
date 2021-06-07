@@ -22,7 +22,7 @@
 	  <%= form.submit "Search" %>
 	  <% end %>
 
-	  <% @pets.each do |pet| %>
+	  <% @potential_pets.each do |pet| %>
   		<%= pet.name %>
   		<%= button_to "Adopt this pet", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id}  %>
   	<% end %>
@@ -35,7 +35,11 @@
   	<% end %>
   	<% elsif @application.status == "Pending" %>
   		<p>Application is pending. Please wait to be approved</p>
+
+  	<% elsif @application.status == "Approved" %>
+  		<p>Your application has been approved!</p>
  		<% end %>
- 		<!-- Changing how a form looks after adding pet, only adding one of the same pet -->
   </section>
 </section>
+
+

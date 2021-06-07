@@ -12,23 +12,26 @@ class Application < ApplicationRecord
 		[street,city,state,zip].join(",")
 	end
 
-	def self.search(search)
-		if search
+	def search(search)
+		if !search.nil?
 			Pet.where("LOWER(name) like ?", "%#{search.downcase}%")
+					.where.not(id: pets.pluck(:id))
 		else
-			Pet.all
+			Pet.where.not(id: pets.pluck(:id))
 		end  	
   end
 
-  def add_pet(arg_id)
-  	matching = Pet.where("id = #{arg_id}")
-  	matching.each do |pet|
-  		pets << pet
+  def adopt_pets(params)
+  	if params[:approve]
+  		pets.find(params[:approve]).update(adoptable: false)
+  		update(status: "Approved") if pets.all?{|pet| pet.adoptable == false}
+  	elsif params[:reject]
+  		binding.pry
   	end
   end
 
   def submit(desc)
-  	assign_attributes(status: "Pending", description: desc)
+  	update(status: "Pending", description: desc)
   end
 	
 end

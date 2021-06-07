@@ -1,11 +1,13 @@
 <section id="app-info">
 	<h2>Applicant name: <%= @application.name %></h2>
 	<h4>Pets on application:</h4>
+
 	<% @application.pets.each do |pet|%>
 	<section id="pet-<%= pet.id %>">
 		<% if pet.adoptable %>
 			<%= pet.name %>
-			<%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id}%>
+			<%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {approve: pet.id}%>
+			<%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {reject: pet.id}%>
 			<% else %>
 			<p><%= pet.name %> has been approved!</p> 
 		<% end %>
