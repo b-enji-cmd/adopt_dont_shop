@@ -21,6 +21,15 @@ class Application < ApplicationRecord
 		end  	
   end
 
+  def adopt_pets(params)
+  	if params[:approve]
+  		pets.find(params[:approve]).update(adoptable: false)
+  		update(status: "Approved") if pets.all?{|pet| pet.adoptable == false}
+  	elsif params[:reject]
+  		binding.pry
+  	end
+  end
+
   def submit(desc)
   	update(status: "Pending", description: desc)
   end
