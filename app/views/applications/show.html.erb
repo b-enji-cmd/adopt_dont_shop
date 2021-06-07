@@ -35,21 +35,11 @@
   	<% end %>
   	<% elsif @application.status == "Pending" %>
   		<p>Application is pending. Please wait to be approved</p>
+
+  	<% elsif @application.status == "Approved" %>
+  		<p>Your application has been approved!</p>
  		<% end %>
   </section>
 </section>
 
 
-
-
-
-
-
-<!-- 
-	showable?
-
-	if status is not in progress 
-	OR 
-	pets are empty
-
- -->
