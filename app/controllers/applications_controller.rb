@@ -9,7 +9,6 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    binding.pry
     if params[:description]
       application.submit(params[:description])
     elsif params[:pet_id]
@@ -22,10 +21,7 @@ class ApplicationsController < ApplicationController
 
   def show
   	@application = Application.find(params[:id])
-    binding.pry
     @potential_pets = @application.search(params[:search])
-
-
   end
 
   def create
